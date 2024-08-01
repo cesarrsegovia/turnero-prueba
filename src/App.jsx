@@ -5,14 +5,14 @@ function App() {
   const [nombre, setNombre] = useState('');
   const [fecha, setFecha] = useState('');
   const [hora, setHora] = useState('');
-  // Estados para editar turnos
+  // Para editar turnos
   const [nuevoNombre, setNuevoNombre] = useState('');
   const [nuevaFecha, setNuevaFecha] = useState('');
   const [nuevaHora, setNuevaHora] = useState('');
   const [turnoAEeditar, setTurnoAEeditar] = useState(null);
 
+  // Cargar turnos desde localStorage
   useEffect(() => {
-    // Cargar turnos almacenados
     const storedTurnos = localStorage.getItem('turnos');
     if (storedTurnos) {
       setTurnos(JSON.parse(storedTurnos));
@@ -25,9 +25,14 @@ function App() {
       alert("Error: Debes proporcionar todos los datos del turno");
       return;
     }
+    // Verificar si ya existe un turno para la fecha y hora proporcionados
+    if (turnos.some(turno => turno.fecha === fecha && turno.hora === hora)) {
+      alert(`${nombre}, ya existe un turno para esa fecha y hora, elige otra fecha u hora`);
+      return;
+    }
     const nuevoTurno = { nombre, fecha, hora };
     setTurnos([...turnos, nuevoTurno]);
-    localStorage.setItem('turnos', JSON.stringify([...turnos, nuevoTurno])); // Actualizar localStorage
+    localStorage.setItem('turnos', JSON.stringify([...turnos, nuevoTurno]));
     setNombre('');
     setFecha('');
     setHora('');
@@ -36,7 +41,7 @@ function App() {
   const eliminarTurno = (index) => {
     const nuevosTurnos = turnos.filter((_, i) => i !== index);
     setTurnos(nuevosTurnos);
-    localStorage.setItem('turnos', JSON.stringify(nuevosTurnos)); // Actualizar localStorage
+    localStorage.setItem('turnos', JSON.stringify(nuevosTurnos));
   };
 
   const editarTurno = (index, nombre, fecha, hora) => {
@@ -52,10 +57,15 @@ function App() {
       alert("Error: Debes proporcionar todos los datos del turno");
       return;
     }
+    if (turnos.some((turno, i) => i !== turnoAEeditar.index && turno.fecha === nuevaFecha && turno.hora === nuevaHora)) {
+      alert(`Error: ${nuevoNombre}, ya existe un turno para esa fecha y hora`);
+      return;
+    }
+    // Editar el turno
     const turnoEditado = { nombre: nuevoNombre, fecha: nuevaFecha, hora: nuevaHora };
     const nuevosTurnos = turnos.map((turno, i) => i === turnoAEeditar.index ? turnoEditado : turno);
     setTurnos(nuevosTurnos);
-    localStorage.setItem('turnos', JSON.stringify(nuevosTurnos)); // Actualizar localStorage
+    localStorage.setItem('turnos', JSON.stringify(nuevosTurnos));
     setTurnoAEeditar(null);
     setNuevoNombre('');
     setNuevaFecha('');
@@ -102,7 +112,8 @@ function App() {
           <button type="submit">Agregar turno</button>
         </form>
         
-        {turnoAEeditar && ( // Si hay turnos para editar se muestra el formulario, sino no
+        {/* Seccion para editar turno */}
+        {turnoAEeditar && (
           <form onSubmit={guardarEdicion}>
             <h2>Editar Turno</h2>
             <label>Nombre:</label>
@@ -130,4 +141,4 @@ function App() {
 
 export default App;
 
-// Hay una variable turnoAEeditar que guarda el turno que se está editando, si es null no se está editando ningún turno, tiene una e de mas en el nombre de la variable
+// hay una variable turnoAEeditar que tiene una e de mas. Para revisar
