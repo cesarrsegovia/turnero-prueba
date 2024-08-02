@@ -11,66 +11,93 @@ function App() {
   const [nuevaHora, setNuevaHora] = useState('');
   const [turnoAEeditar, setTurnoAEeditar] = useState(null);
 
-  // Cargar turnos desde localStorage
-  useEffect(() => {
-    const storedTurnos = localStorage.getItem('turnos');
-    if (storedTurnos) {
-      setTurnos(JSON.parse(storedTurnos));
+  // Cargar turnos desde Backend
+  useEffect (() => {
+    const cargarTurnos = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/turnos');
+        const data = await response.json();
+        setTurnos(data);
+      } catch (error) {
+        console.log('Error al cargar los turnos:', error);
+      }
     }
-  }, []);
 
-  const agregarTurno = (e) => {
+    cargarTurnos();
+  }, []);
+  
+
+  const agregarTurno = async (e) => {
     e.preventDefault();
     if (!nombre || !fecha || !hora) {
       alert("Error: Debes proporcionar todos los datos del turno");
       return;
     }
-    // Verificar si ya existe un turno para la fecha y hora proporcionados
-    if (turnos.some(turno => turno.fecha === fecha && turno.hora === hora)) {
-      alert(`${nombre}, ya existe un turno para esa fecha y hora, elige otra fecha u hora`);
-      return;
+    try {
+      const response = await fetch('http://localhost:5000/api/turnos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nombre, fecha, hora })
+      });
+
+      const nuevoTurno = { nombre, fecha, hora };
+      setTurnos([...turnos, nuevoTurno]);
+      setNombre('');
+      setFecha('');
+      setHora('');
+    } catch (error) {
+      console.log('Error al agregar el turno:', error);
     }
-    const nuevoTurno = { nombre, fecha, hora };
-    setTurnos([...turnos, nuevoTurno]);
-    localStorage.setItem('turnos', JSON.stringify([...turnos, nuevoTurno]));
-    setNombre('');
-    setFecha('');
-    setHora('');
   };
 
-  const eliminarTurno = (index) => {
-    const nuevosTurnos = turnos.filter((_, i) => i !== index);
-    setTurnos(nuevosTurnos);
-    localStorage.setItem('turnos', JSON.stringify(nuevosTurnos));
+  // Eliminar turno
+  const eliminarTurno = async (id) => {
+    try {
+      await fetch(`http://localhost:5000/api/turnos/${id}`, {
+        method: 'DELETE',
+      });
+      setTurnos(turnos.filter(turno => turno._id !== id));
+    } catch (error) {
+      console.error('Error al eliminar el turno:', error);
+    }
   };
 
-  const editarTurno = (index, nombre, fecha, hora) => {
-    setTurnoAEeditar({ index, nombre, fecha, hora });
-    setNuevoNombre(nombre);
-    setNuevaFecha(fecha);
-    setNuevaHora(hora);
+  // Editar turno
+  const editarTurno = (turno) => {
+    setTurnoAEeditar(turno);
+    setNuevoNombre(turno.nombre);
+    setNuevaFecha(turno.fecha);
+    setNuevaHora(turno.hora);
   };
 
-  const guardarEdicion = (e) => {
+  const guardarEdicion = async (e) => {
     e.preventDefault();
     if (!nuevoNombre || !nuevaFecha || !nuevaHora) {
       alert("Error: Debes proporcionar todos los datos del turno");
       return;
     }
-    if (turnos.some((turno, i) => i !== turnoAEeditar.index && turno.fecha === nuevaFecha && turno.hora === nuevaHora)) {
-      alert(`Error: ${nuevoNombre}, ya existe un turno para esa fecha y hora`);
-      return;
+    try {
+      const response = await fetch(`http://localhost:5000/api/turnos/${turnoAEeditar._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ nombre: nuevoNombre, fecha: nuevaFecha, hora: nuevaHora }),
+      });
+
+      // Editar el turno
+      const turnoEditado = await response.json();
+      setTurnos(turnos.map(turno => turno._id === turnoEditado._id ? turnoEditado : turno));
+      setTurnoAEeditar(null);
+      setNuevoNombre('');
+      setNuevaFecha('');
+      setNuevaHora('');
+    } catch (error) {
+      console.error('Error al editar el turno:', error);
     }
-    // Editar el turno
-    const turnoEditado = { nombre: nuevoNombre, fecha: nuevaFecha, hora: nuevaHora };
-    const nuevosTurnos = turnos.map((turno, i) => i === turnoAEeditar.index ? turnoEditado : turno);
-    setTurnos(nuevosTurnos);
-    localStorage.setItem('turnos', JSON.stringify(nuevosTurnos));
-    setTurnoAEeditar(null);
-    setNuevoNombre('');
-    setNuevaFecha('');
-    setNuevaHora('');
-  };
+  }
 
   return (
     <>
@@ -86,14 +113,14 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            {turnos.map((turno, index) => (
-              <tr key={index}>
+            {turnos.map((turno) => (
+              <tr key={turno._id}>
                 <td>{turno.nombre}</td>
                 <td>{turno.fecha}</td>
                 <td>{turno.hora}</td>
                 <td>
-                  <button onClick={() => eliminarTurno(index)}>Eliminar</button>
-                  <button onClick={() => editarTurno(index, turno.nombre, turno.fecha, turno.hora)}>Editar</button>
+                  <button onClick={() => eliminarTurno(turno._id)}>Eliminar</button>
+                  <button onClick={() => editarTurno(turno)}>Editar</button>
                 </td>
               </tr>
             ))}
@@ -131,7 +158,7 @@ function App() {
         <h2>Turnos asignados:</h2>
         <ul>
           {turnos.map((turno, index) => (
-            <li key={index}>{turno.nombre} - {turno.fecha} {turno.hora}</li>
+            <li key={turno._id}>{turno.nombre} - {turno.fecha} {turno.hora}</li>
           ))}
         </ul>
       </div>
