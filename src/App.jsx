@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import './App.css'
 
 function App() {
   const [turnos, setTurnos] = useState([]);
@@ -12,7 +13,7 @@ function App() {
   const [turnoAEeditar, setTurnoAEeditar] = useState(null);
 
   // Cargar turnos desde Backend
-  useEffect (() => {
+  useEffect(() => {
     const cargarTurnos = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/turnos');
@@ -25,7 +26,7 @@ function App() {
 
     cargarTurnos();
   }, []);
-  
+
 
   const agregarTurno = async (e) => {
     e.preventDefault();
@@ -101,7 +102,7 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className='container'>
         <h1>Turnos</h1>
         <table>
           <thead>
@@ -126,7 +127,7 @@ function App() {
             ))}
           </tbody>
         </table>
-        <form onSubmit={agregarTurno}>
+        <form className='formulario' onSubmit={agregarTurno}>
           <label>Nombre:</label>
           <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
           <br />
@@ -138,10 +139,10 @@ function App() {
           <br />
           <button type="submit">Agregar turno</button>
         </form>
-        
+
         {/* Seccion para editar turno */}
         {turnoAEeditar && (
-          <form onSubmit={guardarEdicion}>
+          <form className='formulario' onSubmit={guardarEdicion}>
             <h2>Editar Turno</h2>
             <label>Nombre:</label>
             <input type="text" value={nuevoNombre} onChange={(e) => setNuevoNombre(e.target.value)} />
@@ -156,9 +157,12 @@ function App() {
           </form>
         )}
         <h2>Turnos asignados:</h2>
-        <ul>
+        <ul className="turnos-list">
           {turnos.map((turno, index) => (
-            <li key={turno._id}>{turno.nombre} - {turno.fecha} {turno.hora}</li>
+            <li key={turno._id} className="turno-item">
+              <span className="turno-nombre">{turno.nombre}</span>
+              <span className="turno-fecha">{turno.fecha} {turno.hora}</span>
+            </li>
           ))}
         </ul>
       </div>
