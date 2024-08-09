@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './style/home.css';
 
-const Home = () => {
+export const Home = () => {
     return (
         <div className="home-container">
             <h1 className="home-title">¡Bienvenidos a La Barbería del Sur!</h1>
@@ -40,5 +40,4 @@ const Home = () => {
     );
 };
 
-export default Home;
 

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './style/hero.css';
 import logo from '../assets/logo.png';
 
-const Hero = () => {
+export const Hero = () => {
     return (
         <div className="hero-container">
             <img src={logo} className="hero-img" alt="logo" />
@@ -14,4 +14,3 @@ const Hero = () => {
     );
 };
 
-export default Hero;
