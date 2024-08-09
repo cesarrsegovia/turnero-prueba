@@ -1,0 +1,6 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: radial-gradient(circle, #d8b102, #d8b102 10%, #b58900 60%, #866400 100%);
+}
