@@ -13,22 +13,26 @@ export const Home = () => {
             <section className="home-services">
                 <h2 className="section-title">Nuestros Servicios</h2>
                 <div className="services-list">
-                    <div className="service-item">
+                    <Link to="/corte-clasico" className="service-item-1">
                         <h3>Corte Clásico</h3>
+                        <img className="service-cabello" src="./src/assets/cabello.png" alt="Imagen de un corte clásico de cabello" />
                         <p>El corte que nunca pasa de moda, siempre a tu estilo.</p>
-                    </div>
-                    <div className="service-item">
+                    </Link>
+                    <Link to="/afeitado-tradicional" className="service-item-2">
                         <h3>Afeitado Tradicional</h3>
+                        <img className="service-barba" src="./src/assets/vello-facial.png" alt="Imagen de un afeitado tradicional" />
                         <p>Una experiencia auténtica con navaja y toalla caliente.</p>
-                    </div>
-                    <div className="service-item">
+                    </Link>
+                    <Link to="/arreglo-barba" className="service-item-3">
                         <h3>Arreglo de Barba</h3>
+                        <img className="service-barba" src="./src/assets/barba.png" alt="Imagen de un arreglo de barba" />
                         <p>Para que tu barba luzca impecable, como debe ser.</p>
-                    </div>
-                    <div className="service-item">
+                    </Link>
+                    <Link to="/corte-y-barba" className="service-item-4">
                         <h3>Corte y Barba</h3>
-                        <p>Una combinación perfecta para un estilo completo. ¡Transformate con nosotros!</p>
-                    </div>
+                        <img className="service-cyb" src="./src/assets/barba.png" alt="Imagen de un corte de cabello y barba" />
+                        <p>Una combinación perfecta para un estilo completo.</p>
+                    </Link>
                 </div>
             </section>
             

@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Diplomata&display=swap');
+
+.corte-clasico-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px; /* Agrega padding para mejor presentación en pantallas pequeñas */
+}
+
+.corte-clasico-title {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #333;
+    font-family: "Diplomata", serif;
+    text-align: center; /* Centrar el texto */
+}
+
+.corte-clasico-description {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #555;
+    font-family: 'Lato', sans-serif;
+    text-align: center; /* Centrar el texto */
+}
+
+.corte-clasico-price {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #555;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.back-link:hover {
+    background-color: #848484;
+}
+
+/* Estilos Responsivos */
+@media (max-width: 768px) {
+    .corte-clasico-title {
+        font-size: 2rem; /* Reducir el tamaño del título en pantallas pequeñas */
+    }
+
+    .corte-clasico-description {
+        font-size: 1rem; /* Reducir el tamaño de la descripción */
+    }
+
+    .corte-clasico-price {
+        font-size: 1.2rem; /* Reducir el tamaño del precio */
+    }
+
+    .back-link {
+        padding: 10px 15px; /* Ajustar el padding del botón */
+    }
+}
+
+@media (max-width: 480px) {
+    .corte-clasico-title {
+        font-size: 1.5rem; /* Tamaño adicional para pantallas muy pequeñas */
+    }
+
+    .corte-clasico-description {
+        font-size: 0.9rem; /* Más pequeño en pantallas muy pequeñas */
+    }
+
+    .corte-clasico-price {
+        font-size: 1rem; /* Reducir el tamaño para móviles */
+    }
+
+    .back-link {
+        padding: 8px 12px; /* Ajustar aún más el botón */
+    }
+}
