@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Diplomata&display=swap');
+
+.wrapper-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-img {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.title-login {
+    font-family: "Diplomata", serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.input-group-login {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.label-login {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.input-login {
+    width: 90%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.button-login {
+    width: 90%;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #333333;
+    color: #fff;
+    cursor: pointer;
+}
+
+.button-login:hover {
+    background-color: #555555;
+}

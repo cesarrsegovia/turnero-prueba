@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Diplomata&display=swap');
+
+.wrapper-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* height: 100vh; */
+    padding: 0 1rem; /* Espacio lateral */
+}
+
+.user-img {
+    width: 200px;
+    margin-top: 20px;
+    max-width: 100%; /* Hace que la imagen sea responsiva */
+}
+
+.title-user {
+    font-family: "Diplomata", serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center; /* Centra el texto */
+}
+
+.list-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Para que ocupe todo el ancho */
+}
+
+.turnos-list-user {
+    width: 50%;
+    /* min-width: 500px; */
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #29445b;
+    border-radius: 5px;
+    padding: 1.5rem;
+    overflow-y: auto;
+
+}
+
+.turno-item-user {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+    padding: 0.5rem 0; /* Ajusta el padding */
+}
+
+.turno-nombre-user {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.turno-fecha-user {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #8e8e8e;
+}
+
+.button-back-user {
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #29445b;
+    color: #fff;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    margin-top: 20px; /* Espacio superior */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .title-user {
+        font-size: 1.3rem; /* Tamaño más pequeño */
+    }
+
+    .turnos-list-user {
+        width: 85%; /* Ancho más pequeño */
+        padding: 1rem; /* Menos padding */
+    }
+
+    .turno-item-user {
+        padding: 0.5rem 0; /* Ajuste en el padding */
+    }
+
+    .button-back-user {
+        font-size: 0.9rem; /* Tamaño más pequeño */
+        padding: 0.4rem 0.8rem; /* Menos padding */
+    }
+}
+
+@media (max-width: 480px) {
+    .user-img {
+        width: 150px; /* Tamaño del logo más pequeño */
+    }
+
+    .turnos-list-user {
+        width: 85%; /* Ancho más pequeño */
+        padding: 1rem; /* Menos padding */
+    }
+
+    .title-user {
+        font-size: 1.2rem; /* Tamaño aún más pequeño */
+    }
+
+    .turno-nombre-user,
+    .turno-fecha-user {
+        font-size: 0.9rem; /* Tamaños más pequeños */
+    }
+
+    .button-back-user {
+        font-size: 0.8rem; /* Tamaño más pequeño */
+        padding: 0.3rem 0.6rem; /* Menos padding */
+    }
+}

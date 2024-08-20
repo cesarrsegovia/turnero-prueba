@@ -1,5 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import { useForm } from '../hooks/useForms';
+import logo from '../assets/logo.png';
+import './style/login.css';
+
 
 export const LoginPage = () => {
     const navigate = useNavigate()
@@ -30,18 +33,19 @@ export const LoginPage = () => {
 }
 
     return(
-        <div className="wrapper">
+        <div className="wrapper-login">
+            <img src={logo} className="login-img" alt="logo" />
             <form onSubmit={onLogin}>
-                <h1>Iniciar sesion</h1>
-                <div className="input-group">
-                    <input type="text" name="name" id="name" value={name} onChange={onInputChange} required autoComplete='off' />
-                    <label htmlFor="name">Nombre de Usuario:</label>
+                <h1 className="title-login">Iniciar sesion</h1>
+                <div className="input-group-login">
+                    <label className="label-login" htmlFor="name">Nombre de Usuario:</label>
+                    <input className="input-login" type="text" name="name" id="name" value={name} onChange={onInputChange} required autoComplete='off' />
                 </div>
-                <div className="input-group">
-                    <input type="password" name="password" id="password" value={password} onChange={onInputChange} required autoComplete='off' />
-                    <label htmlFor="password">Contraseña:</label>
+                <div className="input-group-login">
+                    <label className="label-login" htmlFor="password">Contraseña:</label>
+                    <input className="input-login" type="password" name="password" id="password" value={password} onChange={onInputChange} required autoComplete='off' />
                 </div>
-                <button>Entrar</button>
+                <button className="button-login">Entrar</button>
             </form>
         </div>
     )
